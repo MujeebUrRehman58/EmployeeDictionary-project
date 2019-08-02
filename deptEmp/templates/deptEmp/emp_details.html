@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Employee</h2>
+<table class="table">
+	<tbody>
+		<tr>
+			<th scope="row">Emp #</th>
+			<td>{{ emp.user.id }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Name</th>
+			<td>{{ emp.full_name }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Title</th>
+			<td>{{ emp.title }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Department</th>
+			<td>{{ emp.dept }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Email</th>
+			<td>{{ emp.email }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Work Phone</th>
+			<td>{{ emp.work_phone }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Phone</th>
+			<td>{{ emp.cell_phone }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Address</th>
+			<td>{{ emp.address }}</td>
+		</tr>
+		<tr>
+			<th scope="row">Profile</th>
+			{% if emp.profile %}
+			<td><img src="{{ emp.profile.url }}" class="img-fluid"></td>
+			{% else %}
+			<td>Profile not found</td>
+			{% endif %}
+		</tr>
+	</tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+<br />
+{% endif %}
+
+<h2>Create Employee</h2>
+
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	Full name:
+	<br />
+	<input type="text" name="fname" required value="{{ name }}">
+	<br />
+	Title:
+	<br />
+	<select name="title">
+		{% if title %}
+		<option selected>{{ title }}</option>
+		{% else %}
+		<option selected>Choose...</option>
+		{% endif %}
+		<option>Sr. Developer</option>
+		<option>Jr. Developer</option>
+		<option>Data Analyst</option>
+		<option>Software Engineer</option>
+	</select>
+	<br />
+	Username:
+	<br />
+	<input type="text" name="username" required value="{{ username }}">
+	<br />
+	Password:
+	<br />
+	<input type="Password" name="password1" required>
+	<br />
+	Confirm Password:
+	<br />
+	<input type="Password" name="password2" required>
+	<br />
+	Level:
+	<br />
+	<select name="level">
+		{% if level == 'Admin' %}
+		<option selected>Admin</option>
+		<option>Employee</option>
+		{% else %}
+		<option selected>Employee</option>
+		<option>Admin</option>
+		{% endif %}
+		
+	</select>
+	<br>
+	Department:
+	<br />
+	<select name="department" >
+		{% if department %}
+		<option selected>{{ department }}</option>
+		{% else %}
+		<option selected>Choose...</option>
+		{% endif %}
+		{% for dept in depts.all %}
+		<option>{{ dept.dept_name }}</option>
+		{% endfor %}        
+	</select>
+	<br>
+	Address:
+	<br>
+	<input type="text" name="address" value="{{ address }}">
+	<br>
+	Email:
+	<br />
+	<input type="email" name="email" value="{{ email }}" required>
+	<br />
+	Work Phone:
+	<br>
+	<input type="tel" name="work phone" pattern="\+?1?\d{9,15}" value="{{ work }}">
+	<br>
+	Home Phone:
+	<br>
+	<input type="tel" name="home phone" pattern="\+?1?\d{9,15}" value="{{ home }}">
+	<br>
+	Cell Phone:
+	<br>
+	<input type="tel" name="cell phone" pattern="\+?1?\d{9,15}" value="{{ cell }}">
+	<br>
+	Man of the month:
+	{% if man %}
+	<input type="checkbox" name="man of month" checked>
+	{% else %}
+	<input type="checkbox" name="man of month">
+	{% endif %}
+	<br>
+	Profile:
+	<br>
+	<input type="file" name="profile">
+	<br>
+	<br />
+	<input class="btn btn-primary" type="submit" value="Create">
+</form>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Admin page</h1>
+
+<a href="{% url 'departments' %}"><h3>Departments</h3></a>
+<a href="{% url 'members' %}"><h3>Members</h3></a>
+
+{% endblock %}

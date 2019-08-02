@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Departments<a href="{% url 'insertDept' %}"><i class="material-icons align-middle" style="font-size:35px;color:red;">add</i></a></h1>
+{% for dept in depts.all %}
+<a href="{% url 'editDept' dept.id %}">{{ dept.dept_name }}</a>
+<br>
+{% endfor %}
+
+
+{% endblock %}

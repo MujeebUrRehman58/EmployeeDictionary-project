@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles  %}
+
+<h1>Members<a href="{% url 'create' %}"><i class="material-icons align-middle" style="font-size:35px;color:red;">add</i></a></h1>
+
+<form method="POST" action="{% url 'members' %}">
+	{% csrf_token %}
+	<div class="form-group row">	
+		<label for="username" class="col-sm-2 col-form-label">Username</label>
+		<div class="col-sm-2">
+			<input type="text" name="username" class="form-control" value="{{ username }}">
+		</div>
+	</div>
+	<div class="form-group row">	
+		<label for="fname" class="col-sm-2 col-form-label">Name</label>
+		<div class="col-sm-2">
+			<input type="text" name="fname" class="form-control" value="{{ name }}">
+		</div>
+	</div>
+	<div class="form-group row">	
+		<label for="man of month" class="col-sm-2 col-form-label">Man of the month</label>
+		<div class="col-sm-2">
+			<select name="man of month" class="form-control">
+				{% if man == None %}
+				<option selected>All</option>
+				<option>Yes</option>
+				<option>No</option>
+				{% elif man == True %}
+				<option selected>Yes</option>
+				<option>No</option>
+				<option>All</option>
+				{% else %}
+				<option selected>No</option>
+				<option>Yes</option>
+				<option>All</option>
+				{% endif %}
+			</select>
+		</div>
+	</div>
+
+	<input class="btn btn-success" name="seach" type="submit" value="Search">
+</form>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Username</th>
+			<th scope="col">Name</th>
+			<th scope="col">Level</th>
+			<th scope="col">Man of the month</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for emp in emps.all %}
+		
+		<tr onclick="window.location='{% url 'editMem' emp.user.id %}';" style="cursor: pointer;">
+			<td>{{ emp.user }}</td>
+			<td>{{ emp.full_name }}</td>
+			{% if emp.level == 'Admin' %}
+			<td>Admin</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+			{% if emp.manOfMonth %}
+			<td>Yes</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+		</tr>
+
+		{% endfor %}		
+	</tbody>
+</table>
+
+{% endblock %}

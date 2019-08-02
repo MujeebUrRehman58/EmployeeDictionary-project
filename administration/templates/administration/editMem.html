@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+<br />
+{% endif %}
+
+<h2>Edit Member:</h2>
+
+<form method="POST" action="{% url 'editMem' mem.user.id %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	Full name:
+	<br />
+	{% if name %}
+	<input type="text" name="fname" value="{{ name }}" required>
+	{% else %}
+	<input type="text" name="fname" value="{{ mem.full_name }}" required>
+	{% endif %}
+	<br />
+	Title:
+	<br />
+	<select name="title">
+		{% if title %}
+		<option selected>{{ title }}</option>
+		{% else %}
+		<option selected>{{ mem.title }}</option>
+		{% endif %}
+		<option>Sr. Developer</option>
+		<option>Jr. Developer</option>
+		<option>Data Analyst</option>
+		<option>Software Engineer</option>
+	</select>
+	<br />
+	Username:
+	<br />
+	{% if username %}
+	<input type="text" name="username" required value="{{ username }}">
+	{% else %}
+	<input type="text" name="username" required value="{{ mem.user }}">
+	{% endif %}
+	<br />
+
+	Level:
+	<br />
+	<select name="level">
+		{% if level %}
+
+		<option selected>{{ level }}</option>
+		{% else %}
+		<option selected>{{ mem.level }}</option>
+		{% endif %}
+		<option>Admin</option>
+		<option>Employee</option>
+	</select>
+	<br>
+	Department:
+	<br />
+	<select name="department" >
+		{% if department %}
+		<option selected>{{ department }}</option>
+		{% else %}
+		<option selected>{{ mem.dept }}</option>
+		{% endif %}
+		{% for dept in depts.all %}
+		<option>{{ dept.dept_name }}</option>
+		{% endfor %}        
+	</select>
+	<br>
+	Address:
+	<br>
+	{% if address %}
+	<input type="text" name="address" value="{{ address }}">
+	{% else %}
+	<input type="text" name="address" value="{{ mem.address }}">
+	{% endif %}
+	<br>
+	Email:
+	<br />
+	{% if email %}
+	<input type="email" name="email" value="{{ email }}">
+	{% else %}
+	<input type="email" name="email" value="{{ mem.email }}">
+	{% endif	 %}
+	<br />
+	Work Phone:
+	<br>
+	{% if work %}
+	<input type="tel" name="work phone" pattern="\+?1?\d{9,15}" value="{{ work }}" required>
+	{% else %}
+	<input type="tel" name="work phone" pattern="\+?1?\d{9,15}" value="{{ mem.work_phone }}" required>
+	{% endif %}
+	<br>
+	Home Phone:
+	<br>
+	{% if home %}
+	<input type="tel" name="home phone" pattern="\+?1?\d{9,15}" value="{{ home }}">
+	{% else %}
+	<input type="tel" name="home phone" pattern="\+?1?\d{9,15}" value="{{ mem.home_phone }}">
+	{% endif %}
+	<br>
+	Cell Phone:
+	<br>
+	{% if cell %}
+	<input type="tel" name="cell phone" pattern="\+?1?\d{9,15}" value="{{ cell }}">
+	{% else %}
+	<input type="tel" name="cell phone" pattern="\+?1?\d{9,15}" value="{{ mem.cell_phone }}">
+	{% endif %}
+	<br>
+	Man of the month:
+	{% if man %} 
+	<input type="checkbox" name="man of month" checked>
+	{% else %}
+	<input type="checkbox" name="man of month">
+	{% endif %}
+	<div class="form-group row">
+		<div class="col-md-1">Profile</div>
+		<div class="col-md-1"><img src="{{ mem.profile.url }}"></div>
+	</div>
+	Change Profile(optional):
+	<br>
+	<input type="file" name="profile">
+	<br>
+	<br>
+	<div class="form-row">
+		<div class="form-group col-md-1">
+			<input class="btn btn-primary" name="update" type="submit" value="Update" />	
+		</div>
+		<div class="form-group col-md-1">
+			<input class="btn btn-primary" name="delete" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this employee');"/>
+		</div>
+		<div class="form-group col-md-1">
+			<input class="btn btn-primary" name="cancel" type="submit" value="Cancel" />
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+	
+</script>
+{% endblock %}
